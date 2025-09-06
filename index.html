@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sora', sans-serif;
+            background-color: #111111; /* A very dark gray for a softer black */
+            color: #E2E8F0; /* slate-200 */
+        }
+        
+        #dots-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .blinking-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background-color: #FFFFFF;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        .modal {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 300ms ease-in-out, visibility 300ms ease-in-out;
+        }
+        .modal.modal-open {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-content {
+            transform: scale(0.95);
+            transition: transform 300ms ease-in-out;
+        }
+        .modal.modal-open .modal-content {
+            transform: scale(1);
+        }
+
+        nav#main-nav {
+            transition: transform 0.3s ease-in-out;
+        }
+        nav#main-nav.nav-hidden {
+            transform: translate(-50%, -150%);
+        }
+
+        /* Custom Colors for Tailwind */
+        .text-accent-orange { color: #F26435; }
+        .bg-accent-orange { background-color: #F26435; }
+
+        .text-accent-cyan { color: #3BF5D6; }
+        .bg-accent-cyan { background-color: #3BF5D6; }
+        
+        .text-accent-magenta { color: #E827F2; }
+        .bg-accent-magenta { background-color: #E827F2; }
+    </style>
+</head>
+<body class="leading-relaxed">
+    
+    <canvas id="dots-bg"></canvas>
+    <div class="relative z-10">
+        <!-- Header / Navigation -->
+        <nav id="main-nav" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-sm md:max-w-md">
+            <div class="container mx-auto px-4 py-2 bg-black/10 backdrop-blur-2xl rounded-full border border-white/10 shadow-lg flex items-center justify-between">
+                <!-- Left Icon -->
+                <a href="#home" class="nav-link text-slate-300 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18m-14.4-6.4l12.8 12.8m-12.8 0l12.8-12.8" />
+                    </svg>
+                </a>
+                <!-- Middle Links -->
+                <div class="flex items-center space-x-6">
+                     <a href="#about" class="nav-link text-slate-300 hover:text-white transition-colors text-sm font-medium">About</a>
+                     <a href="#projects" class="nav-link text-slate-300 hover:text-white transition-colors text-sm font-medium">Projects</a>
+                </div>
+                <!-- Right Button -->
+                <a href="#contact" class="nav-link bg-accent-orange text-slate-900 text-sm font-bold py-2 px-4 rounded-full hover:opacity-90 transition-colors flex items-center space-x-2">
+                    <span>Say Hello!</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+            </div>
+        </nav>
+
+        <main>
+            <!-- Section 1: Home / Welcome -->
+            <section id="home" class="min-h-screen flex items-center justify-center relative">
+                <div class="text-center z-10 p-4">
+                    <h1 id="typing-headline" class="text-4xl md:text-6xl font-extrabold mb-4 h-24 md:h-36">
+                        <!-- Typing effect will populate this -->
+                    </h1>
+                    <p class="max-w-2xl mx-auto text-lg md:text-xl text-slate-400 mb-8 italic">
+                        A full-stack developer passionate about creating beautiful, user-centered digital experiences that make a difference. 👨‍💻
+                    </p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#projects" class="nav-link bg-accent-cyan text-slate-900 font-bold py-3 px-8 rounded-lg hover:opacity-90 transition-transform hover:scale-105 shadow-lg">
+                            View My Work
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: About Me -->
+            <section id="about" class="py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-4xl font-bold text-center mb-12 text-accent-magenta">✨ About Me</h2>
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="flex justify-center">
+                            <div class="w-64 h-64 md:w-80 md:h-80 bg-slate-800 rounded-lg shadow-2xl p-4 transition-transform duration-300 hover:scale-105">
+                                <img src="https://placehold.co/320x320/1e293b/3BF5D6?text=Me" alt="Your Name" class="rounded-md w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="text-lg text-slate-300 space-y-4">
+                            <p><strong class="font-semibold text-white">I'm a passionate full-stack developer</strong> with over 5 years of experience creating digital solutions that combine beautiful design with robust functionality. I specialize in modern web technologies and love turning complex problems into simple, elegant user experiences.</p>
+                            <p class="text-xl text-accent-cyan italic border-l-4 border-accent-cyan pl-4">
+                               "The best way to predict the future is to create it."
+                            </p>
+                            <p>When I'm not coding, I'm exploring new technologies, contributing to open-source, or sharing knowledge with the developer community. I believe in collaboration and continuous learning.</p>
+                            <div class="mt-6 flex items-center space-x-4">
+                                <button id="more-about-me-btn" class="inline-block bg-accent-magenta text-white font-bold py-2 px-6 rounded-lg hover:opacity-90 transition-transform hover:scale-105 shadow-md">More About Me</button>
+                                <a href="resume.pdf" download="resume.pdf" class="inline-flex items-center space-x-2 bg-slate-800 text-slate-300 font-bold py-2 px-6 rounded-lg hover:bg-slate-700 transition-transform hover:scale-105 shadow-md">
+                                    <span>Resume</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- My Toolkit Section -->
+            <section class="py-20">
+                 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h3 class="text-3xl font-bold text-center mb-10">My Toolkit</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        <!-- Toolkit Icons with pop-out effect -->
+                        <div class="bg-slate-800 p-6 rounded-lg flex flex-col items-center justify-center space-y-2 hover:bg-slate-700 transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                            <svg class="w-12 h-12 text-accent-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            <span class="font-semibold">JavaScript</span>
+                        </div>
+                        <div class="bg-slate-800 p-6 rounded-lg flex flex-col items-center justify-center space-y-2 hover:bg-slate-700 transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                             <svg class="w-12 h-12 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            <span class="font-semibold">React</span>
+                        </div>
+                        <div class="bg-slate-800 p-6 rounded-lg flex flex-col items-center justify-center space-y-2 hover:bg-slate-700 transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                             <svg class="w-12 h-12 text-accent-magenta" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span class="font-semibold">Node.js</span>
+                        </div>
+                        <div class="bg-slate-800 p-6 rounded-lg flex flex-col items-center justify-center space-y-2 hover:bg-slate-700 transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                             <svg class="w-12 h-12 text-accent-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10m16-10v10M9 3v18m6-18v18"></path></svg>
+                            <span class="font-semibold">Tailwind CSS</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Projects -->
+            <section id="projects" class="py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-4xl font-bold mb-4 text-accent-magenta">🚀 Featured Projects</h2>
+                        <p class="text-lg text-slate-400 mb-12 max-w-2xl mx-auto italic">A showcase of my recent work, from concept to completion.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+                        <!-- Project Cards with pop-out effect -->
+                        <div class="project-card bg-slate-800/50 rounded-lg shadow-lg overflow-hidden cursor-pointer transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl" 
+                            data-title="E-Commerce Platform"
+                            data-image="https://placehold.co/800x600/1e293b/3BF5D6?text=E-Commerce"
+                            data-description="A modern, responsive e-commerce solution built with React and Node.js. Features include product management, secure payments with Stripe, and a full-featured admin dashboard for inventory and order tracking."
+                            data-tags="React,Node.js,Stripe">
+                            <img src="https://placehold.co/600x400/0f172a/94a3b8?text=🛒" alt="E-Commerce Platform" class="w-full h-64 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold mb-2">E-Commerce Platform</h3>
+                                <p class="text-slate-400 mb-4">A modern, responsive e-commerce solution built with React and Node.js</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-accent-cyan/10 text-accent-cyan text-xs font-semibold px-2.5 py-1 rounded-full">React</span>
+                                    <span class="bg-accent-magenta/10 text-accent-magenta text-xs font-semibold px-2.5 py-1 rounded-full">Node.js</span>
+                                    <span class="bg-accent-orange/10 text-accent-orange text-xs font-semibold px-2.5 py-1 rounded-full">Stripe</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card bg-slate-800/50 rounded-lg shadow-lg overflow-hidden cursor-pointer transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl"
+                            data-title="Task Management App"
+                            data-image="https://placehold.co/800x600/1e293b/E827F2?text=Task+App"
+                            data-description="Collaborative project management tool with real-time updates using WebSockets. Users can create boards, lists, and cards, drag-and-drop tasks, and assign members to projects. Built with a focus on team productivity."
+                            data-tags="React,Firebase,Tailwind">
+                            <img src="https://placehold.co/600x400/0f172a/94a3b8?text=📋" alt="Task Management App" class="w-full h-64 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold mb-2">Task Management App</h3>
+                                <p class="text-slate-400 mb-4">Collaborative project management tool with real-time updates</p>
+                                <div class="flex flex-wrap gap-2">
+                                     <span class="bg-accent-cyan/10 text-accent-cyan text-xs font-semibold px-2.5 py-1 rounded-full">React</span>
+                                     <span class="bg-accent-magenta/10 text-accent-magenta text-xs font-semibold px-2.5 py-1 rounded-full">Firebase</span>
+                                     <span class="bg-accent-orange/10 text-accent-orange text-xs font-semibold px-2.5 py-1 rounded-full">Tailwind</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Contact -->
+            <section id="contact" class="py-20">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-4xl font-bold mb-4 text-accent-orange">👋 Let's Create Something Together</h2>
+                    <p class="text-lg text-slate-400 mb-10 italic">Have a project in mind? I'd love to hear about it. Let's discuss how we can bring your ideas to life.</p>
+                    <div class="max-w-md mx-auto space-y-4">
+                        <!-- Contact cards with pop-out effect -->
+                        <div class="contact-item group bg-slate-800/50 p-4 rounded-lg flex items-center justify-between transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl" data-copy-text="alex.johnson@email.com">
+                            <div class="flex items-center">
+                                 <svg class="w-6 h-6 text-accent-cyan mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <span class="text-slate-300">alex.johnson@email.com</span>
+                            </div>
+                            <button class="copy-button opacity-0 group-hover:opacity-100 transition-opacity text-sm text-accent-cyan relative">Copy</button>
+                        </div>
+                         <div class="contact-item group bg-slate-800/50 p-4 rounded-lg flex items-center justify-between transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl" data-copy-text="+1 (555) 123-4567">
+                            <div class="flex items-center">
+                                <svg class="w-6 h-6 text-accent-magenta mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                <span class="text-slate-300">+1 (555) 123-4567</span>
+                            </div>
+                            <button class="copy-button opacity-0 group-hover:opacity-100 transition-opacity text-sm text-accent-magenta relative">Copy</button>
+                        </div>
+                        <a href="#" class="group bg-slate-800/50 p-4 rounded-lg flex items-center justify-between transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-slate-700/50">
+                            <div class="flex items-center">
+                                <svg class="w-6 h-6 text-accent-orange mr-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                <span class="text-slate-300">linkedin.com/in/alexjohnson</span>
+                            </div>
+                            <svg class="w-5 h-5 text-slate-500 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center py-6">
+            <p class="text-slate-500">Built with ❤️ using HTML & Tailwind CSS</p>
+        </footer>
+
+        <!-- Project Modal -->
+        <div id="project-modal" class="modal fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
+            <div id="modal-content-project" class="modal-content bg-slate-800 rounded-lg shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative">
+                <!-- Project modal content injected here -->
+            </div>
+        </div>
+        
+        <!-- About Me Modal -->
+        <div id="about-me-modal" class="modal fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
+            <div id="modal-content-about" class="modal-content bg-slate-800 rounded-lg shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative p-8">
+                 <button id="close-about-modal" class="close-modal-btn absolute top-4 right-4 text-slate-400 hover:text-white text-3xl">&times;</button>
+                <h3 class="text-3xl font-bold mb-6 text-accent-magenta">📖 My Story</h3>
+                <div class="text-slate-300 space-y-4">
+                    <h4 class="text-xl font-semibold text-accent-cyan">My Journey Into Tech</h4>
+                    <p>My fascination with technology began not in a classroom, but with a curiosity for how video games were made. This spark led me down a rabbit hole of programming tutorials and open-source projects, eventually culminating in a career I'm deeply passionate about. I started with simple static websites and have since grown to build complex, full-stack applications that serve thousands of users.</p>
+                    <h4 class="text-xl font-semibold text-accent-orange">My Core Philosophy</h4>
+                    <p>I believe that the best technology is that which feels invisible to the user. My goal is to build products that are not only powerful but also intuitive and enjoyable to use. This means a relentless focus on clean code, thoughtful user experience design, and scalable architecture. I'm a firm believer in the "less is more" principle, striving for simplicity and elegance in every line of code.</p>
+                    <h4 class="text-xl font-semibold text-accent-cyan">Beyond the Code</h4>
+                    <p>When I'm away from the keyboard, I'm an avid hiker, a hobbyist photographer, and a passionate home cook. Exploring nature helps me disconnect and approach problems with a fresh perspective. I find that the patience required for a good photograph and the precision needed for a great meal translate surprisingly well to the world of software development.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- SMOOTH SCROLLING FOR NAV LINKS ---
+            document.querySelectorAll('a.nav-link').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetSection = document.querySelector(this.getAttribute('href'));
+                    if(targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // --- TYPING EFFECT ---
+            const typingHeadline = document.getElementById('typing-headline');
+            const phrases = [ "Hello, I'm Tanmay", "I build modern web experiences.", "Let's create something amazing." ];
+            const colors = ['text-accent-cyan', 'text-accent-magenta', 'text-accent-orange'];
+            let phraseIndex = 0, charIndex = 0, isDeleting = false, colorIndex = 0;
+
+            function type() {
+                if (!typingHeadline) return;
+                const currentPhrase = phrases[phraseIndex];
+                const currentColor = colors[colorIndex];
+                let text = isDeleting ? currentPhrase.substring(0, charIndex--) : currentPhrase.substring(0, charIndex++);
+                typingHeadline.innerHTML = `<span class="${currentColor}">${text}</span><span class="blinking-cursor"></span>`;
+                let typeSpeed = isDeleting ? 75 : 150;
+                if (!isDeleting && charIndex === currentPhrase.length) {
+                    typeSpeed = 2000; isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false; 
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    colorIndex = (colorIndex + 1) % colors.length;
+                    typeSpeed = 500;
+                }
+                setTimeout(type, typeSpeed);
+            }
+            type();
+
+            // --- MODAL HANDLING ---
+            const projectModal = document.getElementById('project-modal');
+            const aboutMeModal = document.getElementById('about-me-modal');
+
+            function openModal(modal) {
+                if (!modal) return;
+                modal.classList.add('modal-open', 'backdrop-blur-sm');
+            }
+
+            function closeModal(modal) {
+                if (!modal) return;
+                modal.classList.remove('modal-open', 'backdrop-blur-sm');
+            }
+
+            // Project Modal Logic
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const data = card.dataset;
+                    const tags = data.tags.split(',');
+                    const tagColors = ['accent-cyan', 'accent-magenta', 'accent-orange'];
+                    const tagsHTML = tags.map((tag, index) => {
+                        const color = tagColors[index % tagColors.length];
+                        const colorClass = color.replace('text-', '');
+                        return `<span class="bg-${colorClass}/10 text-${colorClass} text-xs font-semibold px-2.5 py-1 rounded-full">${tag}</span>`;
+                    }).join('');
+                    
+                    const contentDiv = projectModal.querySelector('.modal-content');
+                    if (!contentDiv) return;
+                    contentDiv.innerHTML = `
+                        <button class="close-modal-btn absolute top-4 right-4 text-slate-400 hover:text-white text-3xl z-10">&times;</button>
+                        <img src="${data.image}" alt="${data.title}" class="w-full h-72 object-cover rounded-t-lg">
+                        <div class="p-8">
+                            <h3 class="text-3xl font-bold mb-4">${data.title}</h3>
+                            <div class="flex flex-wrap gap-2 mb-6">${tagsHTML}</div>
+                            <p class="text-slate-300 leading-relaxed mb-6">${data.description}</p>
+                            <a href="#" class="inline-block bg-accent-cyan text-slate-900 font-bold py-2 px-4 rounded-lg hover:opacity-90">Live Demo</a>
+                        </div>
+                    `;
+                    openModal(projectModal);
+                });
+            });
+
+            // About Me Modal Logic
+            const moreAboutMeBtn = document.getElementById('more-about-me-btn');
+            if(moreAboutMeBtn) {
+                moreAboutMeBtn.addEventListener('click', () => {
+                    openModal(aboutMeModal);
+                });
+            }
+
+            // Generic Modal Close Logic
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', e => {
+                    if (e.target === modal || e.target.closest('.close-modal-btn')) {
+                        closeModal(modal);
+                    }
+                });
+            });
+
+            // --- CLICK-TO-COPY ---
+            document.querySelectorAll('.contact-item').forEach(item => {
+                const button = item.querySelector('.copy-button');
+                if (!button) return;
+                button.addEventListener('click', e => {
+                    e.stopPropagation();
+                    navigator.clipboard.writeText(item.dataset.copyText).then(() => {
+                        const originalText = button.textContent;
+                        button.textContent = 'Copied!';
+                        setTimeout(() => button.textContent = originalText, 2000);
+                    });
+                });
+            });
+            
+            // --- MOVING DOTS BACKGROUND ---
+            const canvas = document.getElementById('dots-bg');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let particlesArray;
+
+                function setCanvasSize() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+                setCanvasSize();
+
+                class Particle {
+                    constructor(x, y, directionX, directionY, size) {
+                        this.x = x;
+                        this.y = y;
+                        this.directionX = directionX;
+                        this.directionY = directionY;
+                        this.size = size;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+                        ctx.fill();
+                    }
+                    update() {
+                        if (this.x > canvas.width || this.x < 0) {
+                            this.directionX = -this.directionX;
+                        }
+                        if (this.y > canvas.height || this.y < 0) {
+                            this.directionY = -this.directionY;
+                        }
+                        this.x += this.directionX;
+                        this.y += this.directionY;
+                        this.draw();
+                    }
+                }
+
+                function init() {
+                    particlesArray = [];
+                    let numberOfParticles = (canvas.height * canvas.width) / 12000;
+                    for (let i = 0; i < numberOfParticles; i++) {
+                        let size = (Math.random() * 1.5) + 1;
+                        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                        let directionX = (Math.random() * .4) - .2;
+                        let directionY = (Math.random() * .4) - .2;
+                        particlesArray.push(new Particle(x, y, directionX, directionY, size));
+                    }
+                }
+
+                function connect() {
+                    let opacityValue = 1;
+                    for (let a = 0; a < particlesArray.length; a++) {
+                        for (let b = a; b < particlesArray.length; b++) {
+                            let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
+                                + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                            if (distance < (canvas.width / 8) * (canvas.height / 8)) {
+                                opacityValue = 1 - (distance / 25000);
+                                ctx.strokeStyle = `rgba(255, 255, 255, ${opacityValue})`;
+                                ctx.lineWidth = 1;
+                                ctx.beginPath();
+                                ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                                ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                }
+
+                function animate() {
+                    requestAnimationFrame(animate);
+                    ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+                    for (let i = 0; i < particlesArray.length; i++) {
+                        particlesArray[i].update();
+                    }
+                    connect();
+                }
+
+                window.addEventListener('resize', () => {
+                    setCanvasSize();
+                    init();
+                });
+
+                init();
+                animate();
+            }
+
+            // --- HIDE/SHOW NAV ON SCROLL ---
+            const nav = document.getElementById('main-nav');
+            let lastScrollY = window.scrollY;
+
+            window.addEventListener('scroll', () => {
+                if(nav) {
+                    if (lastScrollY < window.scrollY && window.scrollY > 150) {
+                        nav.classList.add('nav-hidden');
+                    } else {
+                        nav.classList.remove('nav-hidden');
+                    }
+                    lastScrollY = window.scrollY;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
